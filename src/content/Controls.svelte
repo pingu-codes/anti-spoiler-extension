@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { seek } from "../lib/seek";
+
   let { video, player }: { video: HTMLVideoElement; player: HTMLElement } =
     $props();
 
@@ -43,12 +45,6 @@
       for (const e of videoEvents) video.removeEventListener(e, sync);
     };
   });
-
-  function seek(delta: number) {
-    // Stop just short of the end so the end screen doesn't trigger.
-    const end = video.duration - 1;
-    video.currentTime = Math.max(0, Math.min(video.currentTime + delta, end));
-  }
 </script>
 
 {#if seekable}
@@ -80,6 +76,6 @@
     title="{delta < 0 ? 'Back' : 'Forward'} {label(Math.abs(delta))}"
     class="cursor-pointer rounded-full px-3 py-1.5 hover:bg-white/20 active:bg-white/35"
     onmousedown={(e) => e.preventDefault()}
-    onclick={() => seek(delta)}>{text}</button
+    onclick={() => seek(video, delta)}>{text}</button
   >
 {/snippet}

@@ -11,3 +11,7 @@ export function hashTitle(title: string): string {
   }
   return "#" + (h >>> 0).toString(16).padStart(8, "0");
 }
+
+/** What's shown instead of a title: the channel (if known) and the hash. */
+export const label = (title: string, channel?: string | null) =>
+  channel ? `${channel} · ${hashTitle(title)}` : hashTitle(title);

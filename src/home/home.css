@@ -1,0 +1,5 @@
+@import "tailwindcss" source(none);
+@source "./";
+@source "../popup/Toggle.svelte";
+/* The watch view reuses the player's skip controls. */
+@source "../content/Controls.svelte";

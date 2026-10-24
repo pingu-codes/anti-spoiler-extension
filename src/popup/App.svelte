@@ -5,6 +5,7 @@
     saveSettings,
     type Settings,
   } from "../lib/settings";
+  import { ext } from "../lib/browser";
   import Toggle from "./Toggle.svelte";
 
   let settings = $state<Settings>();
@@ -54,5 +55,13 @@
         </li>
       {/each}
     </ul>
+
+    <button
+      type="button"
+      class="mt-3 w-full cursor-pointer rounded-lg bg-zinc-900 px-3 py-2 font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+      onclick={() => ext.runtime.openOptionsPage().then(() => window.close())}
+    >
+      Open home
+    </button>
   {/if}
 </main>

@@ -1,9 +1,6 @@
-import { hashTitle, normalize } from "../lib/hash";
+import { label, normalize } from "../lib/hash";
 import type { Site } from "../sites";
 import { LABEL_ATTR, TOOLTIP_ATTR } from "./constants";
-
-const label = (title: string, channel?: string | null) =>
-  channel ? `${channel} · ${hashTitle(title)}` : hashTitle(title);
 
 /**
  * Keeps `LABEL_ATTR` on every title element in sync with its text (the CSS

@@ -7,6 +7,8 @@
     "build": "bun scripts/build.ts",
     "dev": "bun scripts/build.ts --watch",
     "check": "tsc --noEmit",
+    "test": "bun test",
+    "companion": "bun companion/index.ts",
     "fmt": "prettier --write ."
   },
   "devDependencies": {

@@ -7,18 +7,43 @@ export interface StorageChange {
 }
 
 interface StorageArea {
-  get(key: string): Promise<Record<string, unknown>>;
+  get(keys?: string | string[] | null): Promise<Record<string, unknown>>;
   set(items: Record<string, unknown>): Promise<void>;
+  remove(keys: string | string[]): Promise<void>;
+}
+
+interface ExtEvent<T extends (...args: any[]) => unknown> {
+  addListener(cb: T): void;
+}
+
+interface Alarm {
+  name: string;
+}
+
+interface Permissions {
+  origins?: string[];
 }
 
 interface ExtensionApi {
   storage: {
     sync: StorageArea;
-    onChanged: {
-      addListener(
-        cb: (changes: Record<string, StorageChange>, area: string) => void,
-      ): void;
-    };
+    local: StorageArea;
+    onChanged: ExtEvent<
+      (changes: Record<string, StorageChange>, area: string) => void
+    >;
+  };
+  runtime: {
+    openOptionsPage(): Promise<void>;
+    onStartup: ExtEvent<() => void>;
+  };
+  alarms: {
+    get(name: string): Promise<Alarm | undefined>;
+    create(name: string, info: { periodInMinutes: number }): unknown;
+    onAlarm: ExtEvent<(alarm: Alarm) => unknown>;
+  };
+  permissions: {
+    contains(p: Permissions): Promise<boolean>;
+    request(p: Permissions): Promise<boolean>;
   };
 }
 

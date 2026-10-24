@@ -17,8 +17,9 @@ async function build() {
   const out = `dist/${TARGETS[0]}`;
   await rm("dist", { recursive: true, force: true });
 
-  const [popupCss, overlayCss] = await Promise.all([
+  const [popupCss, homeCss, overlayCss] = await Promise.all([
     tailwind("src/popup/popup.css", { minify: !dev }),
+    tailwind("src/home/home.css", { minify: !dev }),
     tailwind("src/content/overlay.css", { minify: !dev, shadow: true }),
   ]);
 
@@ -26,6 +27,8 @@ async function build() {
     entrypoints: [
       ...SITES.map((s) => `src/content/${s.name}.ts`),
       "src/popup/popup.ts",
+      "src/home/home.ts",
+      "src/background/background.ts",
     ],
     outdir: out,
     naming: "[name].[ext]",
@@ -46,6 +49,8 @@ async function build() {
   await Promise.all([
     Bun.write(`${out}/popup.css`, popupCss),
     cp("src/popup/popup.html", `${out}/popup.html`),
+    Bun.write(`${out}/home.css`, homeCss),
+    cp("src/home/home.html", `${out}/home.html`),
     ...SITES.map((s) => Bun.write(`${out}/${s.name}.css`, siteCss(s))),
   ]);
 
