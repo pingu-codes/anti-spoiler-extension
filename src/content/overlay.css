@@ -1,0 +1,12 @@
+/* Tailwind for the skip controls' shadow root. Built with rem → px so the
+   host page's root font size (YouTube uses 10px) doesn't shrink it. */
+@import "tailwindcss" source(none);
+@source "./Controls.svelte";
+
+:host {
+  all: initial;
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}

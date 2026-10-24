@@ -1,0 +1,25 @@
+{
+  "name": "anti-spoiler-ext",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun scripts/build.ts",
+    "dev": "bun scripts/build.ts --watch",
+    "check": "tsc --noEmit",
+    "fmt": "prettier --write ."
+  },
+  "devDependencies": {
+    "@tailwindcss/node": "4.3.3",
+    "@tailwindcss/oxide": "4.3.3",
+    "@types/bun": "latest",
+    "prettier": "3.8.1",
+    "prettier-plugin-svelte": "4.1.1",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "svelte": "5.57.2",
+    "tailwindcss": "4.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  }
+}
